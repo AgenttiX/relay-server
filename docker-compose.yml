@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  snowflake-proxy:
+    # https://snowflake.torproject.org/
+    # https://gitlab.torproject.org/tpo/anti-censorship/docker-snowflake-proxy
+    # https://hub.docker.com/r/thetorproject/snowflake-proxy
+    image: thetorproject/snowflake-proxy:latest
+    container_name: snowflake-proxy
+    network_mode: host
+    labels:
+      - "com.centurylinklabs.watchtower.scope=relay"
+    restart: always
+  syncthing-relay:
+    image: kylemanna/syncthing-relay
+    ports:
+      - "22067:22067"
+      - "22070:22070"
+    labels:
+      - "com.centurylinklabs.watchtower.scope=relay"
+    restart: always
+  watchtower:
+    container_name: relay-watchtower
+    hostname: watchtower
+    image: containrrr/watchtower:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Run once a week on Wednesday at 04:00
+    command: --cleanup --schedule "0 0 4 * * 3" --scope relay
+    labels:
+      - "com.centurylinklabs.watchtower.scope=relay"
+    restart: always
