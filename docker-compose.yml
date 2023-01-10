@@ -1,6 +1,12 @@
 version: "3.8"
 
 services:
+  honeygain:
+    build: ./honeygain
+    env_file: ./honeygain/honeygain.env
+    # labels:
+    #   - "com.centurylinklabs.watchtower.scope=relay"
+    restart: always
   snowflake-proxy:
     # https://snowflake.torproject.org/
     # https://gitlab.torproject.org/tpo/anti-censorship/docker-snowflake-proxy
