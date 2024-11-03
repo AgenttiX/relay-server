@@ -1,12 +1,15 @@
 version: "3.8"
 
 services:
-  honeygain:
-    build: ./honeygain
-    env_file: ./honeygain/honeygain.env
-    # labels:
-    #   - "com.centurylinklabs.watchtower.scope=relay"
-    restart: always
+  # Honeygain is disabled,
+  # since causes the IP to be added to various bot/robot detection lists,
+  # and therefore one has to fill lots of captchas when using the same IP.
+  # honeygain:
+  #   build: ./honeygain
+  #   env_file: ./honeygain/honeygain.env
+  #   # labels:
+  #   #   - "com.centurylinklabs.watchtower.scope=relay"
+  #   restart: always
   snowflake-proxy:
     # https://snowflake.torproject.org/
     # https://gitlab.torproject.org/tpo/anti-censorship/docker-snowflake-proxy
